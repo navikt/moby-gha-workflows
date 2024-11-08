@@ -8,6 +8,11 @@ on:
         type: string
         description: Java version to build with
         default: '21'
+      image-tag:
+        required: false
+        type: string
+        description: Docker image tag
+        default: 'latest'
     outputs:
       image:
         description: Google Artifact Registery image
@@ -41,6 +46,6 @@ jobs:
           team: okonomi
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-          tag: latest
+          tag: ${{ inputs.image-tag }}
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
