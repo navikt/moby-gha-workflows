@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build & Push Docker Image
 
 on:
   workflow_call:
@@ -10,7 +10,7 @@ on:
         default: '21'
     outputs:
       image:
-        description: "Google Artifact Registery image"
+        description: Google Artifact Registery image
         value: ${{ jobs.build-push-image.outputs.image }}
 
 jobs:
