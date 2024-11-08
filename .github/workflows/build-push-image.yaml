@@ -12,10 +12,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
-      - run: ./gradlew build
-
-      - name: Build Docker Image
-        uses: docker/setup-buildx-action@v3
+      - uses: gradle/actions/setup-gradle@v4
+        env: # Eksluder test dependencies
+          DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath
+        with:
+          dependency-graph: generate-and-submit
+      - run: ./gradlew --configuration-cache build shadowJar
 
       - name: Push Docker Image
         uses: nais/docker-build-push@v0
