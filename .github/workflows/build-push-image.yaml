@@ -2,6 +2,10 @@ name: Build and Push Docker Image
 
 on:
   workflow_call:
+    inputs:
+      java-version:
+        default: '21'
+        type: string
 
 jobs:
   build:
