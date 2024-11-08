@@ -19,6 +19,9 @@ jobs:
           dependency-graph: generate-and-submit
       - run: ./gradlew --configuration-cache build shadowJar
 
+      - name: Build Docker Image
+        uses: docker/setup-buildx-action@v3
+
       - name: Push Docker Image
         uses: nais/docker-build-push@v0
         id: docker-build-push
