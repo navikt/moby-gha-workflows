@@ -5,11 +5,12 @@ on:
     inputs:
       java-version:
         required: false
-        default: '21'
         type: string
+        description: Java version to build with
+        default: '21'
     outputs:
       image:
-        description: "GAR image"
+        description: "Google Artifact Registery image"
         value: ${{ jobs.build.outputs.image }}
 
 jobs:
@@ -21,7 +22,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: ${{ inputs.java-version }}
-      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build and test application
+        uses: gradle/actions/setup-gradle@v4
         env: # Eksluder test dependencies
           DEPENDENCY_GRAPH_INCLUDE_CONFIGURATIONS: compileClasspath|runtimeClasspath
         with:
@@ -31,7 +34,7 @@ jobs:
       - name: Build Docker Image
         uses: docker/setup-buildx-action@v3
 
-      - name: Push Docker Image
+      - name: Push Docker Image to GAR
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:

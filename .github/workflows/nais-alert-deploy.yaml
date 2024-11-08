@@ -1,4 +1,4 @@
-name: NAIS Deploy
+name: NAIS Alerts Deploy
 
 on:
   workflow_call:
@@ -6,12 +6,11 @@ on:
       cluster:
         required: true
         type: string
+        description: NAIS cluster to deploy to
       resource:
         required: true
         type: string
-      image:
-        required: true
-        type: string
+        description: NAIS resource to use for deployment
 
 jobs:
   deploy:
@@ -23,6 +22,5 @@ jobs:
         env:
           CLUSTER: ${{ inputs.cluster }}
           RESOURCE: ${{ inputs.resource }}
-          IMAGE: ${{ inputs.image }}
           TIMEOUT: 10m
           PRINT_PAYLOAD: true
