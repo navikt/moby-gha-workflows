@@ -1,7 +1,13 @@
-name: Build/test and validate PR
+name: Build and test
 
 on:
-  pull_request:
+  workflow_call:
+    inputs:
+      java-version:
+        required: false
+        type: string
+        description: Java version to build with
+        default: '21'
 
 jobs:
   build-pr:
@@ -14,6 +20,6 @@ jobs:
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: ${{ inputs.java-version }}
       - uses: gradle/actions/setup-gradle@v4
       - run: ./gradlew --configuration-cache build shadowJar
