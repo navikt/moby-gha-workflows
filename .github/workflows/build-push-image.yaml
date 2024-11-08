@@ -11,10 +11,10 @@ on:
     outputs:
       image:
         description: "Google Artifact Registery image"
-        value: ${{ jobs.build.outputs.image }}
+        value: ${{ jobs.build-push-image.outputs.image }}
 
 jobs:
-  build:
+  build-push-image:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
