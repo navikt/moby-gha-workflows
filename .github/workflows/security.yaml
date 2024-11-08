@@ -6,8 +6,7 @@ on:
       language:
         required: true
         type: string
-        default: 'java'
-        description: 'Programming language to analyze (java or javascript)'
+        description: 'Programming language to analyze (eg: java or javascript)'
 
 env:
   LATEST_IMAGE: ${{ github.event.repository.name }}:latest
@@ -20,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ ${{ inputs.language }} ]
+        language: ${{ inputs.language }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
