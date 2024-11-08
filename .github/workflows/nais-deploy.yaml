@@ -3,13 +3,13 @@ name: NAIS Deploy
 on:
   workflow_call:
     inputs:
-      image:
-        required: true
-        type: string
       cluster:
         required: true
         type: string
       resource:
+        required: true
+        type: string
+      image:
         required: true
         type: string
 
