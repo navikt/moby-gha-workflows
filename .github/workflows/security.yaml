@@ -19,13 +19,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ${{ inputs.language }}
+        include:
+          - language: ${{ inputs.language }}
+          
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
       - uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
