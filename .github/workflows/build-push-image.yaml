@@ -4,8 +4,13 @@ on:
   workflow_call:
     inputs:
       java-version:
+        required: false
         default: '21'
         type: string
+    outputs:
+      image:
+        description: "GAR image"
+        value: ${{ jobs.build.outputs.image }}
 
 jobs:
   build:
