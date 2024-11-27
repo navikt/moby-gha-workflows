@@ -23,6 +23,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
+          registry-url: https://npm.pkg.github.com
+          scope: '@navikt'
 
       - uses: pnpm/action-setup@v4
         id: pnpm-install
@@ -49,9 +51,13 @@ jobs:
 
       - name: Install dependencies for client
         run: pnpm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install dependencies for server
         run: cd server && pnpm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Build server
         run: cd server && pnpm run build
