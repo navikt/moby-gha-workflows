@@ -27,10 +27,22 @@ jobs:
           scope: '@navikt'
 
       - uses: pnpm/action-setup@v4
+        id: pnpm-install
         with:
           version: ${{ inputs.pnpm-version }}
+          run_install: false
+      - id: pnpm-cache
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Install dependencies
+      - uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies for client
         run: pnpm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
