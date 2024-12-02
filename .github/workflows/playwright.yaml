@@ -23,8 +23,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.node-version }}
-          registry-url: https://npm.pkg.github.com
-          scope: '@navikt'
 
       - uses: pnpm/action-setup@v4
         id: pnpm-install
@@ -44,8 +42,6 @@ jobs:
 
       - name: Install dependencies for client
         run: pnpm install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
